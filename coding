@@ -1,0 +1,22 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Mar  4 12:17:09 2023
+
+@author: DELL
+"""
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import plotly.express as px
+import numpy as np
+import plotly
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+import requests
+
+# Getting Data
+
+url_request = requests.get("https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/1/query?where=1%3D1&outFields=*&outSR=4326&f=json")
+url_json = url_request.json()
+df = pd.DataFrame(url_json['features'])
