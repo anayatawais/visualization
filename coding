@@ -67,3 +67,34 @@ top10_active = pd.DataFrame(data.groupby('Country')['Active'].sum().nlargest(10)
 fig4 = px.bar(top10_active, x = 'Active', y = top10_active.index, height = 600, color = 'Active', orientation = 'h',
              color_continuous_scale = ['paleturquoise','blue'], title = 'Top 10 Active Cases Countries')
 fig4.show()
+
+# USA
+topstates_us = data['Country'] == 'US'
+topstates_us = data[topstates_us].nlargest(5, 'Confirmed')
+# Brazil
+topstates_brazil = data['Country'] == 'Brazil'
+topstates_brazil = data[topstates_brazil].nlargest(5, 'Confirmed')
+# India
+topstates_india = data['Country'] == 'India'
+topstates_india = data[topstates_india].nlargest(5, 'Confirmed')
+# Russia
+topstates_russia = data['Country'] == 'Russia'
+topstates_russia = data[topstates_russia].nlargest(5, 'Confirmed')
+
+# USA 
+fig5 = go.Figure(data = [
+    go.Bar(name = 'Active Cases', x = topstates_us['Active'], y = topstates_us['State'], orientation = 'h'),
+    go.Bar(name = 'Death Cases', x = topstates_us['Deaths'], y = topstates_us['State'], orientation = 'h')
+])
+fig5.update_layout(title = 'Most Affected States in USA', height = 600)
+fig5.show()
+
+
+# India
+fig7 = go.Figure(data = [
+    go.Bar(name = 'Recovered Cases', x = topstates_india['State'], y = topstates_india['Recovered']),
+    go.Bar(name = 'Active Cases', x = topstates_india['State'], y = topstates_india['Active']),
+    go.Bar(name = 'Death Cases', x = topstates_india['State'], y = topstates_india['Deaths'])
+])
+fig7.update_layout(title = 'Most Affected States in India', barmode = 'stack', height = 600)
+fig7.show()
